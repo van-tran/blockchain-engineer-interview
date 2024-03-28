@@ -3,6 +3,7 @@
 ## Table of contents
 * [Description](#description)
 * [Components](#components)
+* [Requirements](#requirements)
 * [Instruction](#instruction)
 * [How to run it](#how-to-run-it)
 * [File structure](#file-structure)
@@ -23,10 +24,29 @@ GenomicDAO is an AI-Powered DeSci Platform for Precision Medicine. PCSP (Post-Co
    - normal or low risk: 30 PCSP
 5. At the same time, the user receives a G-NFT, which is minted on the blockchain based on the user's gene data. This NFT defines the ownership of the gene profile.
 
+**Data format**
+
+The gene data, stored as a text file, comprises the user’s genetic information. Importantly, it lacks any identifiers that could link back to the individual’s real-world identity. Each user’s gene data is distinct, ensuring no duplication exists within the system. Typically, the size of this text file is around 40MB. To simplify this assignment, the gene text file will only contain one of the following text conte:
+
+- "extremely high risk"
+- "high risk"
+- "slightly high risk"
+- "low risk".
+
+Upon processing this data through the TEE, the program will assign a corresponding risk score based on the gene data provided.
+
 ## Components
 
 ![Components](./images/components.jpg?raw=true "Components")
 
+### Gateway
+The client makes requests to the Gateway using conventional REST endpoints.
+
+### Data Storage
+Where the encrypted gene data is stored.
+
+### Trusted Execution Environment
+To protect algorithms and data from unauthorized observers, ensuring that inputs and outputs are end-to-end encrypted, we use the trusted execution environment (TEE).
 
 ### Blockchain
 The following main functions need to be implemented:
@@ -37,6 +57,10 @@ The following main functions need to be implemented:
 Those features should be implemented with contracts on layer 2 built with OP Stack. For more information:
 - [OP Stack](https://stack.optimism.io/#)
 
+## Requirements
+- To complete this assignment you should implement the main features of the components to demonstrate the user’s end-to-end flow.
+- Propose solutions to protect the user’s gene data so that no one could access it directly without the end user’s permission.
+- Implement the solution on the Avalanche Subnet
 
 ## Instructions
 To complete this assignment you should implement the `/// TODO:` with solution code. Most of the changes will be in `/contracts/`
