@@ -60,7 +60,7 @@ Those features should be implemented with contracts on layer 2 built with OP Sta
 ## Requirements
 - To complete this assignment you should implement the main features of the components to demonstrate the user’s end-to-end flow.
 - Propose solutions to protect the user’s gene data so that no one could access it directly without the end user’s permission.
-- Implement the solution on the Avalanche Subnet
+- Implement the solution on the Optimism OP Stack
 
 ## Instructions
 To complete this assignment you should implement the `/// TODO:` with solution code. Most of the changes will be in `/contracts/`
