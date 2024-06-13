@@ -9,7 +9,7 @@
 * [File structure](#file-structure)
  
 ## Description
-GenomicDAO is an AI-Powered DeSci Platform for Precision Medicine. PCSP (Post-Covid Stroke Prevention), the first released token on GenomicDAO platform, allows users to purchase genetic testing services and to govern the drug discovery and development for stroke.
+GenomicDAO is an AI-Powered DeSci Platform for Precision Medicine. PCSP (Post-Covid Stroke Prevention), the first released token on GenomicDAO platform, allows users to purchase genetic testing services and to govern the drug discovery and development for stroke. The G-Stroke service, a product of the GenomicDAO, provides the information about the risk of stroke to the user based his/her genetic data.
 
 ### User flow
 ![E2E flow](./images/end-user-flow.jpg?raw=true "e2e flow")
@@ -26,7 +26,7 @@ GenomicDAO is an AI-Powered DeSci Platform for Precision Medicine. PCSP (Post-Co
 
 **Data format**
 
-The gene data, stored as a text file, comprises the user’s genetic information. Importantly, it lacks any identifiers that could link back to the individual’s real-world identity. Each user’s gene data is distinct, ensuring no duplication exists within the system. Typically, the size of this text file is around 40MB. To simplify this assignment, the gene text file will only contain one of the following text conte:
+The gene data, stored as a text file, comprises the user’s genetic information. Importantly, it lacks any identifiers that could link back to the individual’s real-world identity. Each user’s gene data is distinct, ensuring no duplication exists within the system. Typically, the size of this text file is around 40MB. To simplify this assignment, the gene text file will only contain one of the following text content:
 
 - "extremely high risk"
 - "high risk"
