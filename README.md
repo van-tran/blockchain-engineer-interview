@@ -58,7 +58,7 @@ Those features should be implemented with contracts on layer 2 built with OP Sta
 - [OP Stack](https://stack.optimism.io/#)
 
 ## Requirements
-- To complete this assignment you should implement the main features of the components to demonstrate the user’s end-to-end flow.
+- To complete this assignment you should implement the main features in the #Components section to demonstrate the user’s end-to-end flow.
 - Propose solutions to protect the user’s gene data so that no one could access it directly without the end user’s permission.
 - Implement the solution on the Optimism OP Stack
 
