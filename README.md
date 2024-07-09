@@ -9,7 +9,7 @@
 * [File structure](#file-structure)
  
 ## Description
-GenomicDAO is an AI-Powered DeSci Platform for Precision Medicine. PCSP (Post-Covid Stroke Prevention), the first released token on GenomicDAO platform, allows users to purchase genetic testing services and to govern the drug discovery and development for stroke. The G-Stroke service, a product of the GenomicDAO, provides the information about the risk of stroke to the user based his/her genetic data.
+GenomicDAO is an AI-Powered DeSci Platform for Precision Medicine. PCSP (Post-Covid Stroke Prevention), the first released token on GenomicDAO platform, allows users to purchase genetic testing services and to govern the drug discovery and development for stroke. The G-Stroke service, a product of the GenomicDAO, provides the information about the risk of stroke to the user based on his/her genetic data.
 
 ### User flow
 ![E2E flow](./images/end-user-flow.jpg?raw=true "e2e flow")
