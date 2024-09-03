@@ -18,6 +18,7 @@ contract Controller {
         uint256 id;
         address user;
         string proof;
+        string docId;
         bool confirmed;
     }
 
@@ -51,7 +52,7 @@ contract Controller {
         uint256 sessionId = _sessionIdCounter.current();
         _sessionIdCounter.increment();
 
-        sessions[sessionId] = UploadSession(sessionId, msg.sender, "success", false);
+        sessions[sessionId] = UploadSession(sessionId, msg.sender, "success", docId, false);
         docSubmits[docId] = true;
 
         // 3. notify FE to proceed next step (review & confirm)
@@ -72,10 +73,10 @@ contract Controller {
         // TODO: Implement this method: The proof here is used to verify that the result is returned from a valid computation on the gene data. For simplicity, we will skip the proof verification in this implementation. The gene data's owner will receive a NFT as a ownership certificate for his/her gene profile.
 
         // TODO : validate sessionId
-        require(sessions[sessionId].id == sessionId, "Invalid session id");
-        require(sessions[sessionId].confirmed == false, "Doc already been submitted");
+        require(sessions[sessionId].id == sessionId, "Session is ended");
         require(sessions[sessionId].user == msg.sender, "Invalid session owner");
-        require(sessions[sessionId].proof == proof, "Session is ended");
+        require(keccak256(abi.encodePacked(docId)) == keccak256(abi.encodePacked(sessions[sessionId].docId)), "Session is ended");
+        require(sessions[sessionId].confirmed == false, "Doc already been submitted");
 
 
 
