@@ -42,7 +42,24 @@ contract Controller {
     }
 
     function uploadData(string memory docId) public returns (uint256) {
-        // TODO: Implement this method: to start an uploading gene data session. The doc id is used to identify a unique gene profile. Also should check if the doc id has been submited to the system before. This method return the session id
+        // TODO: Implement this method: to start an uploading gene data session. The doc id is used to identify a unique gene profile. Also should check if the doc id has been submitted to the system before. This method return the session id
+        // 0. check if the docId is existed in docSubmits
+        require(docSubmits[docId] != true, "Doc already been submitted");
+
+        // 2. create a new session
+
+        uint256 sessionId = _sessionIdCounter.current();
+        _sessionIdCounter.increment();
+
+        sessions[sessionId] = UploadSession(sessionId, msg.sender, "success", false);
+        docSubmits[docId] = true;
+
+        // 3. notify FE to proceed next step (review & confirm)
+        emit UploadData(docId, sessionId);
+
+        // 4. return sessionId
+        return sessionId;
+
     }
 
     function confirm(
@@ -52,17 +69,30 @@ contract Controller {
         uint256 sessionId,
         uint256 riskScore
     ) public {
-        // TODO: Implement this method: The proof here is used to verify that the result is returned from a valid computation on the gene data. For simplicity, we will skip the proof verification in this implementation. The gene data's owner will receive a NFT as a ownership certicate for his/her gene profile.
+        // TODO: Implement this method: The proof here is used to verify that the result is returned from a valid computation on the gene data. For simplicity, we will skip the proof verification in this implementation. The gene data's owner will receive a NFT as a ownership certificate for his/her gene profile.
+
+        // TODO : validate sessionId
+        require(sessions[sessionId].id == sessionId, "Invalid session id");
+        require(sessions[sessionId].confirmed == false, "Doc already been submitted");
+        require(sessions[sessionId].user == msg.sender, "Invalid session owner");
+        require(sessions[sessionId].proof == proof, "Session is ended");
+
+
 
         // TODO: Verify proof, we can skip this step
 
         // TODO: Update doc content
+        docs[docId] = DataDoc(docId, contentHash);
 
-        // TODO: Mint NFT 
+        // TODO: Mint NFT
+        uint256 tokenId = geneNFT.safeMint(msg.sender);
+        nftDocs[tokenId] = docId;
 
         // TODO: Reward PCSP token based on risk stroke
+        pcspToken.reward(msg.sender, riskScore);
 
         // TODO: Close session
+        sessions[sessionId].confirmed = true;
     }
 
     function getSession(uint256 sessionId) public view returns(UploadSession memory) {
