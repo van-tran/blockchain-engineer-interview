@@ -11,7 +11,7 @@ contract AccessControl {
     mapping(string => address) private docOwners;
     mapping(bytes32 => bool) private accessList;
 
-    function registerDoc(string memory docId) public {
+    function registerDoc(string memory docId) internal {
         require(docOwners[docId] == address(0), "Doc already registered");
         docOwners[docId] = msg.sender;
     }
@@ -59,7 +59,7 @@ contract AccessControl {
         return accessList[message] || docOwners[docId] == account;
     }
 
-    function generateMessageHash(address account, string memory docId) private view returns (bytes32) {
+    function generateMessageHash(address account, string memory docId) private pure returns (bytes32) {
         return keccak256(abi.encodePacked(account, docId));
     }
 }

@@ -9,10 +9,10 @@ describe("AccessController", async function () {
     async function deployAccessControlFixture() {
         const [owner, addr1, addr2, addr3] = await ethers.getSigners();
 
-        const accessController = await ethers.deployContract("AccessControl");
+        const accessController = await ethers.deployContract("$AccessControl");
         const docId1 = "doc1";
         if (await accessController.connect(owner).verifyOwner(docId1) === false) {
-            await accessController.connect(owner).registerDoc(docId1);
+            await accessController.connect(owner).$registerDoc(docId1);
         }
 
         return { accessController, owner, addr1, addr2, addr3}
