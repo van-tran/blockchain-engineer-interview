@@ -62,6 +62,7 @@ contract Controller is AccessControl{
         emit UploadData(docId, sessionId);
 
         // 4. return sessionId
+        console.log("Session ID: %d", sessionId);
         return sessionId;
 
     }
