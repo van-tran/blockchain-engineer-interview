@@ -3,8 +3,9 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "./NFT.sol";
 import "./Token.sol";
+import "./AccessControl.sol";
 
-contract Controller {
+contract Controller is AccessControl{
     using Counters for Counters.Counter;
 
     //
@@ -18,7 +19,6 @@ contract Controller {
         uint256 id;
         address user;
         string proof;
-        string docId;
         bool confirmed;
     }
 
@@ -52,8 +52,11 @@ contract Controller {
         uint256 sessionId = _sessionIdCounter.current();
         _sessionIdCounter.increment();
 
-        sessions[sessionId] = UploadSession(sessionId, msg.sender, "success", docId, false);
+        sessions[sessionId] = UploadSession(sessionId, msg.sender, "success", false);
         docSubmits[docId] = true;
+
+        // 2.1. grant access to the user
+        registerDoc(docId);
 
         // 3. notify FE to proceed next step (review & confirm)
         emit UploadData(docId, sessionId);
@@ -69,13 +72,12 @@ contract Controller {
         string memory proof,
         uint256 sessionId,
         uint256 riskScore
-    ) public {
+    ) public docOwner(docId) {
         // TODO: Implement this method: The proof here is used to verify that the result is returned from a valid computation on the gene data. For simplicity, we will skip the proof verification in this implementation. The gene data's owner will receive a NFT as a ownership certificate for his/her gene profile.
 
         // TODO : validate sessionId
         require(sessions[sessionId].id == sessionId, "Session is ended");
         require(sessions[sessionId].user == msg.sender, "Invalid session owner");
-        require(keccak256(abi.encodePacked(docId)) == keccak256(abi.encodePacked(sessions[sessionId].docId)), "Session is ended");
         require(sessions[sessionId].confirmed == false, "Doc already been submitted");
 
 
@@ -100,7 +102,10 @@ contract Controller {
         return sessions[sessionId];
     }
 
-    function getDoc(string memory docId) public view returns(DataDoc memory) {
+    function getDoc(string memory docId) public hasPermission(docId) view returns(DataDoc memory) {
+        return _getDoc(docId);
+    }
+    function _getDoc(string memory docId) private view returns(DataDoc memory) {
         return docs[docId];
     }
 }

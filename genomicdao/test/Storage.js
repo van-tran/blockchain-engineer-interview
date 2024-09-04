@@ -114,7 +114,7 @@ describe("Controller", function () {
       await controller.connect(addr1).uploadData(docId)
       await controller.connect(addr1).confirm(docId, contentHash, proof, sessionId, riskScore)
 
-      const doc = await controller.getDoc(docId)
+      const doc = await controller.connect(addr1).getDoc(docId)
 
       expect(doc.hashContent).to.equal(contentHash)
     })
@@ -149,7 +149,7 @@ describe("Controller", function () {
 
       await expect(
         controller.connect(addr2).confirm(docId, contentHash, proof, sessionId, riskScore)
-      ).to.be.revertedWith("Invalid session owner")
+      ).to.be.revertedWith("Owner access denied")
     })
 
     it("Should fail if the session is end", async function () {
@@ -167,7 +167,7 @@ describe("Controller", function () {
 
       await expect(
         controller.connect(addr1).confirm(docId2, contentHash, proof, sessionId, riskScore)
-      ).to.be.revertedWith("Session is ended")
+      ).to.be.revertedWith("Owner access denied")
     })
   })
 })
